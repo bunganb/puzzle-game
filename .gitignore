@@ -1,0 +1,70 @@
+# =======================================
+# Unity .gitignore (Aman untuk Kolaborasi)
+# =======================================
+
+# OS generated
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Unity generated folders (cache, auto-regenerate)
+Library/
+Temp/
+Obj/
+Logs/
+MemoryCaptures/
+Artifacts/
+UserSettings/
+
+# Builds
+Build/
+Builds/
+*.apk
+*.aab
+
+# Asset Store tools
+Assets/AssetStoreTools*
+*.unitypackage
+
+# Addressables & StreamingAssets cache
+/Addressable[Aa]ssets[Dd]ata*/
+AssetBundles/
+StreamingAssets/aa.meta
+StreamingAssets/aa/*
+StreamingAssets/aa*/*
+
+# Ignore only package cache (aman)
+PackageCache/
+
+# IDE generated
+.vscode/
+.vs/
+.idea/
+*.csproj
+*.unityproj
+*.sln
+*.suo
+*.tmp
+*.user
+*.userprefs
+*.pidb
+*.booproj
+*.svd
+*.pdb
+*.mdb
+*.opendb
+*.VC.db
+
+# Crash/error reports
+sysinfo.txt
+
+# ProjectSettings / Packages that MUST be kept
+!Assets/
+!ProjectSettings/
+!Packages/
+!Packages/manifest.json
+!Packages/packages-lock.json
+
+# Node / package managers
+package-lock.json
+Packages/manifest-temp.json
