@@ -1,0 +1,21 @@
+﻿using Core;
+using Data;
+namespace Managers
+{
+    public static class PuzzleRuleFactory
+    {
+        public static IPuzzleRule Create(LevelConfig config)
+        {
+            switch (config.puzzleType)
+            {
+                case PuzzleType.PackingShape:
+                    return new PackingPuzzleRule(config.packingData);
+
+                default:
+                    UnityEngine.Debug.LogError("PuzzleType belum dibuat!");
+                    return null;
+            }
+        }
+    }
+
+}
