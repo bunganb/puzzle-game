@@ -13,7 +13,11 @@ MonoBehaviour:
   m_Name: Packing_Level1
   m_EditorClassIdentifier: 
   pieces:
-  - pieceId: Block_01
+  - pieceId: Shape_01
     prefab: {fileID: 3902218741964656494, guid: 9ea1bdeb010d73142b676e892acb461c, type: 3}
     startPosition: {x: -5, y: 0}
-    targetPosition: {x: 0, y: 0}
+    targetPosition: {x: -2.55, y: 2.52}
+  - pieceId: Shape_02
+    prefab: {fileID: 3902218741964656494, guid: d7a6373a145644a4ca5ca03b8bcd8bdd, type: 3}
+    startPosition: {x: -5, y: -5}
+    targetPosition: {x: -0.0261, y: 0.0061}

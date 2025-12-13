@@ -6,15 +6,8 @@ namespace Managers
     {
         private void Start()
         {
-            LevelConfig config = GameManager.Instance.CurrentLevel;
-
-            if (config == null)
-            {
-                Debug.LogError("No LevelConfig loaded!");
-                return;
-            }
-
-            PuzzleManager.Instance.Initialize(config);
+            if (GameManager.Instance.CurrentLevel != null)
+                PuzzleManager.Instance.Initialize(GameManager.Instance.CurrentLevel);
         }
     }
 

@@ -4,7 +4,8 @@ namespace Data
 
     public enum PuzzleType
     {
-        PackingShape
+        PackingShape, 
+        DvdSorting,
     }
 
     [CreateAssetMenu(menuName = "Game/LevelConfig")]
@@ -14,9 +15,10 @@ namespace Data
         public int level;
 
         public PuzzleType puzzleType;
+        public GameObject puzzleAreaPrefab;
 
         public PackingPuzzleData packingData;
-        // public SortingPuzzleData sortingData;
+        public DvdSortingData sortingData;
         // public GroupingPuzzleData groupingData;
     }
 
