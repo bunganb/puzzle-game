@@ -66,4 +66,21 @@ public class GameManager : MonoBehaviour
         // untuk test cepat:
         NextLevel();
     }
+    public void ResetCurrentLevel()
+    {
+        if (CurrentLevel == null)
+        {
+            Debug.LogWarning("ResetCurrentLevel called but CurrentLevel is null.");
+            return;
+        }
+
+        if (PuzzleManager.Instance == null)
+        {
+            Debug.LogError("PuzzleManager.Instance is null. Pastikan PuzzleManager ada di scene Main.");
+            return;
+        }
+
+        PuzzleManager.Instance.ClearCurrentPuzzle();
+        PuzzleManager.Instance.Initialize(CurrentLevel);
+    }
 }
