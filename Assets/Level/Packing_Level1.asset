@@ -14,10 +14,58 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pieces:
   - pieceId: Shape_01
-    prefab: {fileID: 3902218741964656494, guid: 9ea1bdeb010d73142b676e892acb461c, type: 3}
-    startPosition: {x: -5, y: 0}
-    targetPosition: {x: -2.55, y: 2.52}
+    prefab: {fileID: 171179494827858239, guid: 22ce56b7690bc9448b20e6981735b896, type: 3}
+    startPosition: {x: -5.35, y: 2.67}
+    targetPosition: {x: -2.434, y: 2.604}
   - pieceId: Shape_02
     prefab: {fileID: 3902218741964656494, guid: d7a6373a145644a4ca5ca03b8bcd8bdd, type: 3}
-    startPosition: {x: -5, y: -5}
-    targetPosition: {x: -0.0261, y: 0.0061}
+    startPosition: {x: 5.24, y: -3.56}
+    targetPosition: {x: -0.019964399, y: 0.18111986}
+  - pieceId: Shape_03
+    prefab: {fileID: 8745742244954361872, guid: 24dcb36e224101f43a0acb97febbb2ee, type: 3}
+    startPosition: {x: 5.12, y: 2.59}
+    targetPosition: {x: -0.51, y: 2.605}
+  - pieceId: Shape_04
+    prefab: {fileID: 690695027250106475, guid: ec82338c0609e0f4a970140df9cf28c7, type: 3}
+    startPosition: {x: 7.32, y: -2.43}
+    targetPosition: {x: 0.563, y: 2.623}
+  - pieceId: Shape_05
+    prefab: {fileID: 4734625639487710135, guid: 11905f7dd865ad24da890382c4734785, type: 3}
+    startPosition: {x: -7.54, y: -2.64}
+    targetPosition: {x: 2.475586, y: 1.8500413}
+  - pieceId: Shape_06
+    prefab: {fileID: 4997132204174266406, guid: a83e45836fab0a840b2d8b0ccdcdfbf1, type: 3}
+    startPosition: {x: 7.75, y: -2.64}
+    targetPosition: {x: 2.804, y: 1.8428977}
+  - pieceId: Shape_07
+    prefab: {fileID: 1918618510179176997, guid: 15d228f6217440e4589add72dee1ac12, type: 3}
+    startPosition: {x: 6.5, y: 1.81}
+    targetPosition: {x: -2.93, y: -0.76}
+  - pieceId: Shape_08
+    prefab: {fileID: 1091041258342691994, guid: 5ed87bbda3c40c040b9ccd2597827219, type: 3}
+    startPosition: {x: -4.99, y: -2.76}
+    targetPosition: {x: -2.038, y: -0.219}
+  - pieceId: Shape_09
+    prefab: {fileID: 4122782997613250949, guid: e21aeb6faa565bd4d979d7da614a25d7, type: 3}
+    startPosition: {x: 5.02, y: -0.69}
+    targetPosition: {x: 1.9443022, y: -0.96610254}
+  - pieceId: Shape_10
+    prefab: {fileID: 4846125187616377314, guid: 109de86343387114a9061265de966011, type: 3}
+    startPosition: {x: -6.8, y: -0.29}
+    targetPosition: {x: -0.8066039, y: 0.1596567}
+  - pieceId: Shape_11
+    prefab: {fileID: 3722478314594182582, guid: e683866b7df5f584a84f90006fb93721, type: 3}
+    startPosition: {x: 7.92, y: 1.15}
+    targetPosition: {x: 0.79, y: 0.167}
+  - pieceId: Shape_12
+    prefab: {fileID: 6738511649176025730, guid: 9e3fcfb9b5df0a74fb17f785bf133960, type: 3}
+    startPosition: {x: 0.19, y: -4.35}
+    targetPosition: {x: -0.11, y: -2.661}
+  - pieceId: Shape_13
+    prefab: {fileID: 2661394358335877685, guid: b9e9e5979e8ccf54cbc853115da659b6, type: 3}
+    startPosition: {x: -7.76, y: 3.08}
+    targetPosition: {x: 2.877, y: -1.502}
+  - pieceId: Shape_14
+    prefab: {fileID: 1910640987436200951, guid: 8e743fc87d399af46997dcde396a34ca, type: 3}
+    startPosition: {x: -3.64, y: 4.48}
+    targetPosition: {x: 0, y: -1.74}

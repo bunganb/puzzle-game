@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Data;
+using UnityEngine;
 
 namespace Core
 {
@@ -25,6 +26,7 @@ namespace Core
             {
                 case "Correct":
                     correctPieces.Add(pieceId);
+                    Debug.Log("Correct" +  pieceId);
                     break;
 
                 case "InFrameWrong":

@@ -12,7 +12,7 @@ namespace View
         private Vector3 targetPos;
 
         [SerializeField] private LayerMask frameMask;   // HANYA layer FrameArea
-        [SerializeField] private float correctDistance = 0.15f; // toleransi slot
+        [SerializeField] private float correctDistance = 0.5f; // toleransi slot
 
         public void Setup(string id, Vector2 targetPosition)
         {

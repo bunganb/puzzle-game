@@ -17,3 +17,4 @@ MonoBehaviour:
   puzzleType: 0
   puzzleAreaPrefab: {fileID: 5711059142695147627, guid: ca79229ae03345142a47fdfc59e5394e, type: 3}
   packingData: {fileID: 11400000, guid: e1abb756984cc064e8833bebfdd918cf, type: 2}
+  sortingData: {fileID: 0}
