@@ -10,7 +10,8 @@ namespace Managers
             {
                 case PuzzleType.PackingShape:
                     return new PackingPuzzleRule(config.packingData);
-
+                case PuzzleType.DvdSorting:
+                    return new DvdSortingRule(config.sortingData);
                 default:
                     UnityEngine.Debug.LogError("PuzzleType belum dibuat!");
                     return null;

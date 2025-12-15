@@ -6,7 +6,7 @@ namespace Data
     public class PackingPuzzleData : ScriptableObject
     {
         [System.Serializable]
-        public class PieceData
+        public class DvdData
         {
             public string pieceId;
             public GameObject prefab;
@@ -14,9 +14,9 @@ namespace Data
             public Vector2 targetPosition;   // POSISI BENAR di layout
         }
 
-        public List<PieceData> pieces = new List<PieceData>();
+        public List<DvdData> pieces = new List<DvdData>();
 
-        public PieceData GetPiece(string id)
+        public DvdData GetPiece(string id)
         {
             return pieces.Find(p => p.pieceId == id);
         }

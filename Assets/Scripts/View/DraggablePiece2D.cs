@@ -45,35 +45,37 @@ namespace View
             Vector3 mouse = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             mouse.z = 0;
 
-            // 1️⃣ Apakah di dalam frame?
             Collider2D hit = Physics2D.OverlapPoint(mouse, frameMask);
-            bool insideFrame = hit != null;
-
-            // 2️⃣ Hitung jarak ke posisi target
-            float distToTarget = Vector3.Distance(transform.position, targetPos);
-            bool isCorrectSlot = insideFrame && distToTarget <= correctDistance;
-
-            if (!insideFrame)
+            if (hit == null)
             {
-                // Di luar kotak
                 PuzzleManager.Instance.TryPlacePiece(pieceId, "Outside");
-                // optional: balik ke posisi awal
                 transform.position = originalPos;
+                return;
             }
-            else if (isCorrectSlot)
+
+            var slot = hit.GetComponent<View.DvdSlot2D>();
+            if (slot == null)
             {
-                // Di dalam kotak & dekat target → snap ke posisi benar
-                transform.position = targetPos;
-                PuzzleManager.Instance.TryPlacePiece(pieceId, "Correct");
+                // kena area lain yang bukan slot
+                PuzzleManager.Instance.TryPlacePiece(pieceId, "Outside");
+                transform.position = originalPos;
+                return;
+            }
+
+            // coba taruh ke slot
+            bool ok = PuzzleManager.Instance.TryPlacePiece(pieceId, slot.SlotId);
+
+            if (ok)
+            {
+                // snap ke posisi slot
+                transform.position = slot.transform.position;
             }
             else
             {
-                // Di dalam frame tapi BELUM di slot tepat
-                PuzzleManager.Instance.TryPlacePiece(pieceId, "InFrameWrong");
-                // Di sini kamu bisa:
-                // - biarkan di posisi sekarang, atau
-                // - snap ke grid, terserah desain
+                // invalid (warna salah / slot penuh / dll)
+                transform.position = originalPos;
             }
         }
+
     }
 }
