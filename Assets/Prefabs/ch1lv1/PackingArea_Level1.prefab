@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8951397219535278605}
   - component: {fileID: 8067151477697754868}
   m_Layer: 6
-  m_Name: 'FrameArea '
+  m_Name: FrameArea
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -134,10 +134,10 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: -6.75, y: -6.5099998}
-      - {x: 6.8599997, y: -6.48}
-      - {x: 6.87, y: 7.0899997}
-      - {x: -6.77, y: 7.1}
+    - - {x: -6.844754, y: -6.5921197}
+      - {x: 6.939461, y: -6.5544953}
+      - {x: 6.9336, y: 7.150615}
+      - {x: -6.8076334, y: 7.141686}
   m_UseDelaunayMesh: 0
 --- !u!1 &1367737390775823325
 GameObject:

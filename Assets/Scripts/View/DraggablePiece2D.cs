@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
-using Managers;
+using Core;
+
 namespace View
 {
     public class DraggablePiece2D : MonoBehaviour
@@ -9,16 +10,19 @@ namespace View
         private bool dragging;
         private Vector3 offset;
         private Vector3 originalPos;
-        private Vector3 targetPos;
+        private IDropHandler2D _dropHandler;
 
-        [SerializeField] private LayerMask frameMask;   // HANYA layer FrameArea
-        [SerializeField] private float correctDistance = 0.5f; // toleransi slot
-
-        public void Setup(string id, Vector2 targetPosition)
+        public void Setup(string id, IDropHandler2D dropHandler)
         {
             pieceId = id;
-            targetPos = targetPosition;
+            _dropHandler = dropHandler;
             originalPos = transform.position;
+        }
+        private static Bounds ShiftBounds(Bounds b, Vector3 newCenter)
+        {
+            Vector3 delta = newCenter - b.center;
+            b.center += delta;
+            return b;
         }
 
         private void OnMouseDown()
@@ -42,40 +46,28 @@ namespace View
         {
             dragging = false;
 
+            if (_dropHandler == null)
+            {
+                Debug.LogError("DropHandler belum diset!");
+                transform.position = originalPos;
+                return;
+            }
+
             Vector3 mouse = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             mouse.z = 0;
 
-            Collider2D hit = Physics2D.OverlapPoint(mouse, frameMask);
-            if (hit == null)
+            if (_dropHandler.TryDrop(
+                    pieceId,
+                    GetComponent<Collider2D>(),
+                    mouse,
+                    out Vector3 snapPos))
             {
-                PuzzleManager.Instance.TryPlacePiece(pieceId, "Outside");
-                transform.position = originalPos;
-                return;
-            }
-
-            var slot = hit.GetComponent<View.DvdSlot2D>();
-            if (slot == null)
-            {
-                // kena area lain yang bukan slot
-                PuzzleManager.Instance.TryPlacePiece(pieceId, "Outside");
-                transform.position = originalPos;
-                return;
-            }
-
-            // coba taruh ke slot
-            bool ok = PuzzleManager.Instance.TryPlacePiece(pieceId, slot.SlotId);
-
-            if (ok)
-            {
-                // snap ke posisi slot
-                transform.position = slot.transform.position;
+                transform.position = snapPos;
             }
             else
             {
-                // invalid (warna salah / slot penuh / dll)
                 transform.position = originalPos;
             }
         }
-
     }
 }
