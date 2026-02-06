@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: b1f7f796fa82e2f4aa51a2b0e01490d7
+guid: 09aff57807e0fe246ad74b2778fe9564
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 7661901125034827846
-    second: ch1 lv1_orange (1)_0
+      213: -7826976982446094046
+    second: ch1 lv1_orange (1) 1_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -46,17 +46,17 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
-  alignment: 9
+  alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
   spritePixelsToUnits: 100
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
   alphaIsTransparency: 1
-  spriteTessellationDetail: 0
+  spriteTessellationDetail: -1
   textureType: 8
   textureShape: 1
   singleChannelComponent: 0
@@ -113,37 +113,41 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: ch1 lv1_orange (1)_0
+      name: ch1 lv1_orange (1) 1_0
       rect:
         serializedVersion: 2
-        x: 7
-        y: 10
-        width: 373
-        height: 678
+        x: 6
+        y: 4
+        width: 374
+        height: 679
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
+      outline:
+      - - {x: -7, y: -1.5}
+        - {x: 179, y: -339.5}
+        - {x: 182, y: 331.5}
+        - {x: -184, y: 331.5}
+      physicsShape:
+      - - {x: -6, y: -3.5}
+        - {x: 184, y: -336.5}
+        - {x: 184, y: 333.5}
+        - {x: -184, y: 333.5}
+      tessellationDetail: 0
       bones: []
-      spriteID: 640eddd8a7a845a60800000000000000
-      internalID: 7661901125034827846
+      spriteID: 229442057edf06390800000000000000
+      internalID: -7826976982446094046
       vertices: []
       indices: 
       edges: []
       weights: []
     outline: []
     customData: 
-    physicsShape:
-    - - {x: -69, y: -7}
-      - {x: 118, y: -349}
-      - {x: 121, y: 335}
-      - {x: -249, y: 335}
+    physicsShape: []
     bones: []
-    spriteID: 5e97eb03825dee720800000000000000
-    internalID: 1537655665
+    spriteID: 419f9d6489711e44195b47628be4882d
+    internalID: 0
     vertices: []
     indices: 
     edges: []
@@ -152,7 +156,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      ch1 lv1_orange (1)_0: 7661901125034827846
+      ch1 lv1_orange (1) 1_0: -7826976982446094046
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

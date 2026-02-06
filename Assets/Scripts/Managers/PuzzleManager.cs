@@ -18,12 +18,33 @@ namespace Managers
 
         private void Awake()
         {
-            if (Instance != null && Instance != this) { Destroy(gameObject); return; }
+            // ✅ PENTING: Jangan DontDestroyOnLoad untuk PuzzleManager
+            // Setiap scene punya PuzzleManager sendiri
+            if (Instance != null && Instance != this) 
+            { 
+                Destroy(gameObject); 
+                return; 
+            }
             Instance = this;
+        }
+
+        private void OnDestroy()
+        {
+            // Clear instance saat scene unload
+            if (Instance == this)
+            {
+                Instance = null;
+            }
         }
 
         public void Initialize(LevelConfig config)
         {
+            if (config == null)
+            {
+                Debug.LogError("LevelConfig is null!");
+                return;
+            }
+
             ClearCurrentPuzzle();
             SpawnPuzzleArea(config.puzzleAreaPrefab);
 
@@ -37,7 +58,7 @@ namespace Managers
                     handler = new PackingDropHandler(
                         config.packingData,
                         _frameMask,
-                        1.5f  
+                        1.5f
                     );
                     SpawnPackingPieces(config.packingData, handler);
                     break;
@@ -51,6 +72,12 @@ namespace Managers
 
         private void SpawnDvdPieces(DvdSortingData data, IDropHandler2D handler)
         {
+            if (data == null)
+            {
+                Debug.LogError("DvdSortingData is null!");
+                return;
+            }
+
             foreach (var piece in data.pieces)
             {
                 GameObject obj = Instantiate(
@@ -74,15 +101,21 @@ namespace Managers
 
         private void SpawnPackingPieces(PackingPuzzleData data, IDropHandler2D handler)
         {
+            if (data == null)
+            {
+                Debug.LogError("PackingPuzzleData is null!");
+                return;
+            }
+
             foreach (var p in data.pieces)
             {
                 GameObject obj = Instantiate(
-                    p.prefab, 
-                    p.startPosition, 
-                    Quaternion.identity, 
+                    p.prefab,
+                    p.startPosition,
+                    Quaternion.identity,
                     _piecesParent
                 );
-                
+
                 var drag = obj.GetComponent<DraggablePiece2D>();
                 if (drag != null)
                 {
@@ -109,7 +142,7 @@ namespace Managers
             _frameMask = LayerMask.GetMask("FrameArea");
             _slotMask = LayerMask.GetMask("DvdSlot");
 
-            // Cari FrameArea dengan trim untuk handle spasi
+            // Cari FrameArea
             Transform frameAreaTransform = null;
             for (int i = 0; i < _currentArea.transform.childCount; i++)
             {
@@ -124,22 +157,13 @@ namespace Managers
             if (frameAreaTransform != null)
             {
                 _frameCollider = frameAreaTransform.GetComponent<Collider2D>();
-                if (_frameCollider == null)
-                {
-                    Debug.LogWarning("FrameArea ditemukan tapi tidak ada Collider2D!");
-                }
             }
             else
             {
-                // Fallback: cari recursive
                 frameAreaTransform = FindDeepChild(_currentArea.transform, "FrameArea");
                 if (frameAreaTransform != null)
                 {
                     _frameCollider = frameAreaTransform.GetComponent<Collider2D>();
-                }
-                else
-                {
-                    Debug.LogError("GameObject 'FrameArea' tidak ditemukan di prefab!");
                 }
             }
 
@@ -156,11 +180,6 @@ namespace Managers
             {
                 _piecesParent = piecesRoot;
             }
-
-            if (_frameMask == 0)
-                Debug.LogWarning("Layer 'FrameArea' tidak ditemukan!");
-            if (_slotMask == 0)
-                Debug.LogWarning("Layer 'DvdSlot' tidak ditemukan!");
         }
 
         private Transform FindDeepChild(Transform parent, string childName)
@@ -169,7 +188,7 @@ namespace Managers
             {
                 if (child.name.Trim() == childName)
                     return child;
-                
+
                 Transform result = FindDeepChild(child, childName);
                 if (result != null)
                     return result;
@@ -190,7 +209,7 @@ namespace Managers
             if (ok && _rule.IsCompleted)
             {
                 AudioManager.Instance?.winSound();
-                GameManager.Instance.NotifyLevelCompleted();
+                GameManager.Instance?.NotifyLevelCompleted();
             }
 
             return ok;

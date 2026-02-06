@@ -6,8 +6,6 @@ using System.Linq;
 public class DvdSortingRule : IPuzzleRule
 {
     private readonly DvdSortingData _data;
-
-    // slotId -> pieceId
     private readonly Dictionary<string, string> _slotToPiece = new();
 
     public bool IsCompleted { get; private set; }
@@ -19,66 +17,107 @@ public class DvdSortingRule : IPuzzleRule
 
     public bool TryPlacePiece(string pieceId, string targetId)
     {
-        // Outside means remove from board (optional)
+        // Remove from board
         if (targetId == "Outside")
         {
-            // kalau piece sedang ada di slot, keluarkan
-            var kv = _slotToPiece.FirstOrDefault(x => x.Value == pieceId);
-            if (!string.IsNullOrEmpty(kv.Key))
-                _slotToPiece.Remove(kv.Key);
-
+            RemovePieceFromSlot(pieceId);
             RecheckCompleted();
             return true;
         }
 
-        // targetId format: "{bookId}_Slot_{index}"
-        string[] parts = targetId.Split("_Slot_");
-        if (parts.Length != 2) return false;
-
-        string bookId = parts[0];
+        // Parse targetId format: "{bookId}_Slot_{index}"
+        if (!TryParseSlotId(targetId, out string bookId, out int slotIndex))
+        {
+            UnityEngine.Debug.LogWarning($"Invalid targetId format: {targetId}");
+            return false;
+        }
 
         var piece = _data.GetPiece(pieceId);
         var book = _data.GetBook(bookId);
 
-        if (piece == null || book == null) return false;
+        // Validation
+        if (piece == null)
+        {
+            UnityEngine.Debug.LogError($"Piece not found: {pieceId}");
+            return false;
+        }
 
-        // 1) cek warna cocok
-        if (piece.color != book.color) return false;
+        if (book == null)
+        {
+            UnityEngine.Debug.LogError($"Book not found: {bookId}");
+            return false;
+        }
 
-        // 2) cek slot kosong
-        if (_slotToPiece.ContainsKey(targetId)) return false;
+        // ✅ Rule 1: Warna harus cocok
+        if (piece.color != book.color)
+        {
+            UnityEngine.Debug.Log($"❌ Wrong color: {piece.color} != {book.color}");
+            return false;
+        }
 
-        // 3) kalau piece sebelumnya sudah ada di slot lain, pindahkan (opsional)
-        var prev = _slotToPiece.FirstOrDefault(x => x.Value == pieceId);
-        if (!string.IsNullOrEmpty(prev.Key))
-            _slotToPiece.Remove(prev.Key);
+        // ✅ Rule 2: Slot harus kosong
+        if (_slotToPiece.ContainsKey(targetId))
+        {
+            UnityEngine.Debug.Log($"❌ Slot already occupied: {targetId}");
+            return false;
+        }
 
-        // place
+        // ✅ Rule 3: Remove piece dari slot lama (kalau ada)
+        RemovePieceFromSlot(pieceId);
+
+        // ✅ Place piece di slot baru
         _slotToPiece[targetId] = pieceId;
 
         RecheckCompleted();
         return true;
     }
 
+    private void RemovePieceFromSlot(string pieceId)
+    {
+        // Cari slot yang berisi piece ini
+        var slot = _slotToPiece.FirstOrDefault(x => x.Value == pieceId).Key;
+        if (!string.IsNullOrEmpty(slot))
+        {
+            _slotToPiece.Remove(slot);
+        }
+    }
+
+    private bool TryParseSlotId(string slotId, out string bookId, out int slotIndex)
+    {
+        bookId = null;
+        slotIndex = -1;
+
+        string[] parts = slotId.Split(new[] { "_Slot_" }, System.StringSplitOptions.None);
+        if (parts.Length != 2)
+            return false;
+
+        bookId = parts[0];
+        return int.TryParse(parts[1], out slotIndex);
+    }
+
     private void RecheckCompleted()
     {
-        // WIN: semua book terisi 8 slot dan huruf dalam tiap book urut
+        // ✅ WIN Condition: Semua book terisi penuh DAN huruf terurut
         foreach (var book in _data.books)
         {
-            // ambil semua slot untuk book ini
+            // Get all slots untuk book ini
             var bookSlots = _slotToPiece
                 .Where(x => x.Key.StartsWith(book.bookId + "_Slot_"))
                 .ToList();
 
-            if (bookSlots.Count != book.slotCount) { IsCompleted = false; return; }
+            // ✅ Check 1: Semua slot harus terisi
+            if (bookSlots.Count != book.slotCount)
+            {
+                IsCompleted = false;
+                return;
+            }
 
-            // urutkan berdasarkan slot index supaya urutan visual dinilai
+            // ✅ Check 2: Huruf harus terurut (non-decreasing)
             var lettersInOrder = bookSlots
                 .OrderBy(x => ExtractSlotIndex(x.Key, book.bookId))
                 .Select(x => _data.GetPiece(x.Value).letter)
                 .ToList();
 
-            // cek apakah sudah non-decreasing (A..Z)
             for (int i = 1; i < lettersInOrder.Count; i++)
             {
                 if (lettersInOrder[i] < lettersInOrder[i - 1])
@@ -89,14 +128,18 @@ public class DvdSortingRule : IPuzzleRule
             }
         }
 
+        // ✅ Semua book valid!
         IsCompleted = true;
+        UnityEngine.Debug.Log("🎉 DVD Sorting Completed!");
     }
 
     private int ExtractSlotIndex(string slotId, string bookId)
     {
-        // slotId: "Book_Red_Slot_3"
         string prefix = bookId + "_Slot_";
-        string num = slotId.Substring(prefix.Length);
-        return int.TryParse(num, out int idx) ? idx : 999;
+        if (slotId.Length <= prefix.Length)
+            return 999;
+
+        string numStr = slotId.Substring(prefix.Length);
+        return int.TryParse(numStr, out int idx) ? idx : 999;
     }
 }
